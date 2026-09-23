@@ -104,8 +104,9 @@ function renderLaps() {
   lapList.innerHTML = "";
   const splits = laps.map((l) => l.split);
   // best / worst only mean something with at least three laps
-  const best = laps.length > 2 ? Math.min(...splits) : null;
-  const worst = laps.length > 2 ? Math.max(...splits) : null;
+  const spread = laps.length > 2 && Math.max(...splits) !== Math.min(...splits);
+  const best = spread ? Math.min(...splits) : null;
+  const worst = spread ? Math.max(...splits) : null;
 
   laps.forEach((l, i) => {
     const li = document.createElement("li");
